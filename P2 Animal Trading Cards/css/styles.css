@@ -1,0 +1,47 @@
+/* add your CSS here */
+body{
+  font-family: helvetica, verdana, arial;
+}
+
+h3{
+    font-size: 30px;
+    margin-top:0;
+    margin-bottom: 15px;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+img {
+  width: 300px;  
+  border-radius: 5px;
+}
+
+ul{
+  list-style-type: none;
+  padding: 0px;
+}
+
+ul li span{
+  font-weight: bold;
+}
+
+.card {
+  border:1px solid #777;
+  padding:20px;
+  background-color: #fff;
+  width:300px;
+  box-shadow: 10px 10px 5px 0px rgba(204,204,204,1);
+  border-radius: 8px;
+}
+
+.animal-info{
+  width:278px;
+  padding: 0px 10px 0px 10px;
+  border: 1px solid   #aaa;
+  border-radius: 5px;
+  margin-top: 10px
+}
+
+.animal-fact{
+  font-style: italic;
+}
