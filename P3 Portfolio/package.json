@@ -1,0 +1,27 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "George Studenko Portfolio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnstudenko/FEND/Portfolio"
+  },
+  "keywords": [
+    "Portfolio",
+    "Bootstrap",
+    "George",
+    "Studenko"
+  ],
+  "author": "George N. Studenko Debicki",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-responsive-images": "^1.10.1",
+    "grunt-validation": "^0.9.0",
+    "load-grunt-tasks": "^3.5.2"
+  }
+}

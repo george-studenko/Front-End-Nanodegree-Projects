@@ -1,0 +1,108 @@
+@import url(http://weloveiconfonts.com/api/?family=zocial);
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #747704;
+}
+
+p {
+    font-size: 16px;
+    line-height: 20px;
+    color: #333333;
+}
+
+footer {
+    text-align: center;
+    font-size: 14px;
+}
+
+footer a {
+    color: #555555;
+}
+
+footer a:hover {
+    font-size: 30px;
+}
+
+footer .hr {
+    margin-bottom: 0;
+}
+
+a,
+a:hover,
+a:active,
+a:visited {
+    text-decoration: none;
+    transition-duration: 1s;
+}
+
+[class*="zocial-"]:before {
+    font-family: 'zocial', 'Lato', sans-serif;
+}
+
+.center {
+    margin: 0 auto !important;
+}
+
+.education img,
+.portfolio img {
+    cursor: pointer;
+}
+
+.social-icons {
+    font-size: 24px;
+}
+
+.hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.text-thin {
+    font-weight: 100;
+}
+
+.text-muted {
+    color: #bcbbbb;
+}
+
+.title-super {
+    font-size: 42px;
+}
+
+.logo-padding {
+    padding-top: 30px;
+}
+
+.text-xs-center {
+    text-align: center;
+}
+
+.rounded {
+    border-radius: 8px;
+    -webkit-box-shadow: 10px 10px 20px 0px rgba(238, 238, 238, 0.58);
+    -moz-box-shadow: 10px 10px 20px 0px rgba(238, 238, 238, 0.58);
+    box-shadow: 10px 10px 20px 0px rgba(238, 238, 238, 0.58);
+}
+
+.modal-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: #111111;
+}
+
+.modal-body p {
+    padding-top: 10px;
+    text-align: center;
+}
+
+@media screen and (width-max: 750) {
+
+    .xs-center {
+        margin: 0 auto !important;
+    }
+    
+}
