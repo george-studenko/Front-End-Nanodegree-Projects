@@ -1,5 +1,4 @@
 #Classic Arcade Game Clone Project
-=================================
 
 ## Quick Start
 
@@ -11,4 +10,4 @@ Use the arrow keys to move the player around the screen, avoid the bugs and the 
 
 Collect gems to get points, get as much points as possible before the game ends!
 
-The game will end if collide with a bug, you fall into the water or the time runs out. 
+The game will end if collide with a bug, you fall into the water or the time runs out.
