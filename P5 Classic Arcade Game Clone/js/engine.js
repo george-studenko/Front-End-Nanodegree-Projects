@@ -7,11 +7,7 @@
  * like a flipbook you may have created as a kid. When your player moves across
  * the screen, it may look like just that image/character is moving or being
  * drawn but that is not the case. What's really happening is the entire "scene"
- * is being drawn over and over, presenting the illusion of animation.
- *
- * This engine is available globally via the Engine variable and it also makes
- * the canvas' context (ctx) object globally available to make writing app.js
- * a little simpler to work with.
+ * is being drawn over and over, presenting the illusion of animation.  
  */
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
@@ -177,22 +173,22 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
+        player.checkCollisions();
     }
 
-    function checkCollisions() {
-        checkEnemyCollision();
-        checkWaterCollision();
-        checkGemCollision();
+    Player.prototype.checkCollisions = function checkCollisions() {
+        player.checkEnemyCollision();
+        player.checkWaterCollision();
+        player.checkGemCollision();
 
-    }
+    };
 
-    function checkGemCollision() {
+    Player.prototype.checkGemCollision = function() {
         if ((player.x == gem.x) && (player.y == gem.y)) {
             player.score += gem.points;
             writeScore(player.score);
             gem.randomizeLocation();
-            gem.randomizeColor();            
+            gem.randomizeColor();
             // saves current score
             player.lastScore = player.score;
             // saves max score
@@ -200,9 +196,10 @@ var Engine = (function(global) {
                 player.maxScore = player.score;
             }
         }
-    }
+    };
+
     // Checks if there is enemy collision
-    function checkEnemyCollision() {
+    Player.prototype.checkEnemyCollision = function() {
         // Indicates all possible Y Axis position where the player can collide with an enemy
         var playerY = [239, 156, 73];
         /* The index variable is used to get the right enemy from the allEnemies array depending on
@@ -218,7 +215,7 @@ var Engine = (function(global) {
     }
 
     // Checks if the player collides with the water tiles
-    function checkWaterCollision() {
+    Player.prototype.checkWaterCollision = function() {
         if (player.y == -10) {
             player.isDead = true;
             gameOver();
@@ -235,7 +232,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update(dt);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -292,18 +288,15 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        gem.materialize();
+        gem.render();
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
-
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
+    /* This function resets the game,sets the player on the initial x,y position
+     * restarts the countdown and set the isDead to false
      */
     function reset() {
         player.y = 405;

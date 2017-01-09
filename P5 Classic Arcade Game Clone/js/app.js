@@ -1,3 +1,19 @@
+/* GameObject is the Base Class from which Enemy, Player and Gem will inherit
+ *  it contains the common variables and functions
+ */
+var GameObject = function(sprite) {
+    this.sprite = sprite;
+    var x = 0;
+    var y = 0;
+};
+
+// Draws the GameObject on the screen
+GameObject.prototype.render = function() {
+    console.log(this.x);
+    console.log(this.sprite);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -5,11 +21,13 @@ var Enemy = function() {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-    this.x = 0;
-    this.y = 0;
+    GameObject.call(this, 'images/enemy-bug.png');
+    // speed will be randomized after an instance is created, so we just leave it a 0 by default
     this.speed = 0;
 };
+Enemy.prototype.constructor = Enemy;
+Enemy.prototype = Object.create(GameObject.prototype);
+
 /* This will set a random speed to the enemy everytime it goes off screen
  *  has a min speed of 100 to make sure it doesn't go very slow
  */
@@ -29,33 +47,18 @@ Enemy.prototype.update = function(dt) {
         this.randomizeSpeed();
     }
     this.x = this.x + this.speed * dt;
-
 };
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// The player class handles the player behaviour and control input
 var Player = function() {
-    this.sprite = 'images/char-pink-girl.png';
-    this.y = 405;
-    this.x = 305;
+    GameObject.call(this, 'images/char-pink-girl.png');
     this.isDead = false;
     this.score = 0;
     this.lastScore = 0;
     this.maxScore = 0;
 };
-
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
-
-Player.prototype.update = function(dt) {
-
-}
+Player.prototype.constructor = Player;
+Player.prototype = Object.create(GameObject.prototype);
 // checks the current possition and moves the player if not in the edges
 Player.prototype.handleInput = function(key) {
     if (key == 'up') {
@@ -92,12 +95,12 @@ Player.prototype.handleInput = function(key) {
 
 var Gem = function() {
     this.spriteOptions = ['images/gemy.png', 'images/gemb.png', 'images/gemg.png'];
-    this.sprite = this.spriteOptions[0];
     this.pointsOptions = [15, 30, 45];
     this.points = this.pointsOptions[0];
-    this.x = 0;
-    this.y = 0;
+    GameObject.call(this, this.spriteOptions[0]);
 };
+Gem.prototype.constructor = Gem;
+Gem.prototype = Object.create(GameObject.prototype);
 Gem.prototype.randomizeLocation = function() {
     var gemX = [0, 5, 105, 205, 305, 405, 505, 605];
     var gemY = [0, 239, 156, 73];
@@ -111,13 +114,7 @@ Gem.prototype.randomizeColor = function() {
     var randomGemColor = Math.floor(Math.random() * 3);
     this.sprite = this.spriteOptions[randomGemColor];
     this.points = this.pointsOptions[randomGemColor];
-
-    console.log("RANDOM INDEX" + randomGemColor);
 };
-
-Gem.prototype.materialize = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -147,7 +144,7 @@ var gem = new Gem();
 gem.randomizeLocation();
 
 // This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
