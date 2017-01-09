@@ -3,8 +3,8 @@
  */
 var GameObject = function(sprite) {
     this.sprite = sprite;
-    var x = 0;
-    var y = 0;
+    this.x = 0;
+    this.y = 0;
 };
 
 // Draws the GameObject on the screen
@@ -23,8 +23,8 @@ var Enemy = function() {
     // speed will be randomized after an instance is created, so we just leave it a 0 by default
     this.speed = 0;
 };
-Enemy.prototype.constructor = Enemy;
 Enemy.prototype = Object.create(GameObject.prototype);
+Enemy.prototype.constructor = Enemy;
 
 /* This will set a random speed to the enemy everytime it goes off screen
  *  has a min speed of 100 to make sure it doesn't go very slow
@@ -55,8 +55,8 @@ var Player = function() {
     this.lastScore = 0;
     this.maxScore = 0;
 };
-Player.prototype.constructor = Player;
 Player.prototype = Object.create(GameObject.prototype);
+Player.prototype.constructor = Player;
 // checks the current possition and moves the player if not in the edges
 Player.prototype.handleInput = function(key) {
     if (key == 'up') {
@@ -104,8 +104,8 @@ var Gem = function() {
     this.points = this.pointsOptions[0];
     GameObject.call(this, this.spriteOptions[0]);
 };
-Gem.prototype.constructor = Gem;
 Gem.prototype = Object.create(GameObject.prototype);
+Gem.prototype.constructor = Gem;
 Gem.prototype.randomizeLocation = function() {
     var gemX = [0, 5, 105, 205, 305, 405, 505, 605];
     var gemY = [0, 239, 156, 73];
