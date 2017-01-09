@@ -1,10 +1,10 @@
 /* GameObject is the Base Class from which Enemy, Player and Gem will inherit
  *  it contains the common variables and functions
  */
-var GameObject = function(sprite) {
+var GameObject = function(sprite,x,y) {
     this.sprite = sprite;
-    this.x = 0;
-    this.y = 0;
+    this.x = x;
+    this.y = y;
 };
 
 // Draws the GameObject on the screen
@@ -13,13 +13,13 @@ GameObject.prototype.render = function() {
 };
 
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    GameObject.call(this, 'images/enemy-bug.png');
+    GameObject.call(this, 'images/enemy-bug.png',x,y);
     // speed will be randomized after an instance is created, so we just leave it a 0 by default
     this.speed = 0;
 };
@@ -48,8 +48,8 @@ Enemy.prototype.update = function(dt) {
 };
 
 // The player class handles the player behaviour and control input
-var Player = function() {
-    GameObject.call(this, 'images/char-pink-girl.png');
+var Player = function(x,y) {
+    GameObject.call(this, 'images/char-pink-girl.png',x,y);
     this.isDead = false;
     this.score = 0;
     this.lastScore = 0;
@@ -98,8 +98,8 @@ Player.prototype.checkCollisions = function() {
 
 };
 
-var Gem = function() {
-    this.spriteOptions = ['images/gemy.png', 'images/gemb.png', 'images/gemg.png'];
+var Gem = function(x,y) {
+    this.spriteOptions = ['images/gemy.png', 'images/gemb.png', 'images/gemg.png',x,y];
     this.pointsOptions = [15, 30, 45];
     this.points = this.pointsOptions[0];
     GameObject.call(this, this.spriteOptions[0]);
@@ -124,18 +124,9 @@ Gem.prototype.randomizeColor = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy3 = new Enemy();
-enemy3.y = 60;
-enemy3.x = 0;
-
-var enemy2 = new Enemy();
-enemy2.y = 145;
-enemy2.x = -100;
-
-var enemy1 = new Enemy();
-enemy1.y = 230;
-enemy1.x = -55;
-
+var enemy3 = new Enemy(0,60);
+var enemy2 = new Enemy(-100,145);
+var enemy1 = new Enemy(-55,230);
 var allEnemies = [enemy1, enemy2, enemy3];
 
 // will set the random speed for each of the enemies
@@ -143,9 +134,9 @@ for (var i = 0; i < allEnemies.length; i++) {
     allEnemies[i].randomizeSpeed();
 };
 
-var player = new Player();
+var player = new Player(305,405);
 
-var gem = new Gem();
+var gem = new Gem(5,239);
 gem.randomizeLocation();
 
 // This listens for key presses and sends the keys to your

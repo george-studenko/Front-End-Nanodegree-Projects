@@ -132,7 +132,7 @@ var Engine = (function(global) {
         var index = playerY.indexOf(player.y);
         if (index != -1) {
             if ((this.x < (allEnemies[index].x + 30)) && (this.x > (allEnemies[index].x - 30))) {
-                this.isDead = true;                
+                this.isDead = true;
                 gameOver();
             }
         }
@@ -140,7 +140,7 @@ var Engine = (function(global) {
 
     // Checks if the player collides with the water tiles
     Player.prototype.checkWaterCollision = function() {
-        if (player.y == -10) {
+        if (this.y == -10) {
             this.isDead = true;
             gameOver();
         }
