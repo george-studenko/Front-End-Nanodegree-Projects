@@ -9,8 +9,6 @@ var GameObject = function(sprite) {
 
 // Draws the GameObject on the screen
 GameObject.prototype.render = function() {
-    console.log(this.x);
-    console.log(this.sprite);
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -91,6 +89,13 @@ Player.prototype.handleInput = function(key) {
         this.y = 405;
         this.x = 305;
     }
+};
+
+Player.prototype.checkCollisions = function() {
+    this.checkEnemyCollision();
+    this.checkWaterCollision();
+    this.checkGemCollision();
+
 };
 
 var Gem = function() {

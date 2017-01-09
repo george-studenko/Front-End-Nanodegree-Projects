@@ -7,7 +7,7 @@
  * like a flipbook you may have created as a kid. When your player moves across
  * the screen, it may look like just that image/character is moving or being
  * drawn but that is not the case. What's really happening is the entire "scene"
- * is being drawn over and over, presenting the illusion of animation.  
+ * is being drawn over and over, presenting the illusion of animation.
  */
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
@@ -87,6 +87,7 @@ var Engine = (function(global) {
         ctx.fillStyle = "orange";
         ctx.font = "40pt impact";
         ctx.textAlign = "center";
+
         var yourScore = "Score: " + player.lastScore + "    Max Score: " + player.maxScore;
         // sets the rety text just below the GAME OVER text
         ctx.strokeText(yourScore, canvas.width / 2, (canvas.height / 2) + 60);
@@ -104,6 +105,45 @@ var Engine = (function(global) {
 
         player.score = 0;
         writeScore(0);
+    }
+
+    Player.prototype.checkGemCollision = function() {
+        if ((this.x == gem.x) && (this.y == gem.y)) {
+            this.score += gem.points;
+            writeScore(this.score);
+            gem.randomizeLocation();
+            gem.randomizeColor();
+            // saves current score
+            this.lastScore = this.score;
+            // saves max score
+            if (this.score > this.maxScore) {
+                this.maxScore = this.score;
+            }
+        }
+    };
+
+    // Checks if there is enemy collision
+    Player.prototype.checkEnemyCollision = function() {
+        // Indicates all possible Y Axis position where the player can collide with an enemy
+        var playerY = [239, 156, 73];
+        /* The index variable is used to get the right enemy from the allEnemies array depending on
+         *  the player Y position, so then we just need to check for X position to know if there is colllision.
+         */
+        var index = playerY.indexOf(player.y);
+        if (index != -1) {
+            if ((this.x < (allEnemies[index].x + 30)) && (this.x > (allEnemies[index].x - 30))) {
+                this.isDead = true;                
+                gameOver();
+            }
+        }
+    }
+
+    // Checks if the player collides with the water tiles
+    Player.prototype.checkWaterCollision = function() {
+        if (player.y == -10) {
+            this.isDead = true;
+            gameOver();
+        }
     }
 
     // starts the countdown and stops when player dies
@@ -176,51 +216,7 @@ var Engine = (function(global) {
         player.checkCollisions();
     }
 
-    Player.prototype.checkCollisions = function checkCollisions() {
-        player.checkEnemyCollision();
-        player.checkWaterCollision();
-        player.checkGemCollision();
 
-    };
-
-    Player.prototype.checkGemCollision = function() {
-        if ((player.x == gem.x) && (player.y == gem.y)) {
-            player.score += gem.points;
-            writeScore(player.score);
-            gem.randomizeLocation();
-            gem.randomizeColor();
-            // saves current score
-            player.lastScore = player.score;
-            // saves max score
-            if (player.score > player.maxScore) {
-                player.maxScore = player.score;
-            }
-        }
-    };
-
-    // Checks if there is enemy collision
-    Player.prototype.checkEnemyCollision = function() {
-        // Indicates all possible Y Axis position where the player can collide with an enemy
-        var playerY = [239, 156, 73];
-        /* The index variable is used to get the right enemy from the allEnemies array depending on
-         *  the player Y position, so then we just need to check for X position to know if there is colllision.
-         */
-        var index = playerY.indexOf(player.y);
-        if (index != -1) {
-            if ((player.x < (allEnemies[index].x + 30)) && (player.x > (allEnemies[index].x - 30))) {
-                player.isDead = true;
-                gameOver();
-            }
-        }
-    }
-
-    // Checks if the player collides with the water tiles
-    Player.prototype.checkWaterCollision = function() {
-        if (player.y == -10) {
-            player.isDead = true;
-            gameOver();
-        }
-    }
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
