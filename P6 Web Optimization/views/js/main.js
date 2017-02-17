@@ -465,8 +465,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -521,6 +521,8 @@ var items;
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var size = 256;
+  // create movingPizzas outside of the loop so no need to look for it every time
+  var movingPizzas= document.getElementById("movingPizzas1");
   // since we have 8 pizzas per row, we can calculate 6 rows with 8 pizzas each by creating 48 elements
   for (var i = 0; i < 48; i++) {
     var elem = document.createElement('img');
@@ -529,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.src = "images/minipizza.png";
     elem.basicLeft = (i % cols) * size;
     elem.style.top = (Math.floor(i / cols) * size) + 'px';
-    document.getElementById("movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   // Setting the items global var here, it wont change afterwards, this way we cache it once and thats it.
   items = document.getElementsByClassName('mover');
